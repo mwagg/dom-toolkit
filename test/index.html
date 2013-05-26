@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Mocha Tests</title>
+    <link rel="stylesheet" href="lib/mocha.css" />
+  </head>
+  <body>
+    <div id="mocha"></div>
+    <div id="fixture"></div>
+    <script src="lib/mocha.js"></script>
+    <script src="lib/chai.js"></script>
+    <script>
+      window.expect = chai.expect;
+    </script>
+    <script>mocha.setup('bdd')</script>
+    <script src="../dom-toolkit.js"></script>
+    <script src="core.test.js"></script>
+    <script src="dom.test.js"></script>
+    <script>
+      var fixtureElement = function () {
+        return document.querySelector("#fixture");
+      };
+
+      var clearFixture = function () {
+        var temp = document.createElement("div");
+        [].slice.call(fixtureElement().children, 0).forEach(function (child) {
+          temp.appendChild(child);
+        });
+      };
+
+      beforeEach(function () {
+        clearFixture();
+      });
+
+      mocha.checkLeaks();
+      mocha.run();
+    </script>
+  </body>
+</html>
