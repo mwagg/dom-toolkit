@@ -11,5 +11,8 @@
   "license": "BSD",
   "dependencies": {
     "wisp": "~0.8.0"
+  },
+  "devDependencies": {
+    "nodewatch": "~0.3.1"
   }
 }

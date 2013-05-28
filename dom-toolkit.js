@@ -20,7 +20,12 @@
         void(0);
       return value;
     };
-  }
+  };
+  
+  var setAttribute = function setAttribute(target, attr, value) {
+    return ((resolve(target)) || 0)[resolve(attr)] = resolve(value);
+  };
+  exports.setAttribute = setAttribute
 
   var query = function query(selector, memoize) {
     var query = function() {
@@ -42,12 +47,8 @@
   };
   exports.addClass = addClass;
   
-  var setAttribute = function setAttribute(target, attr, value) {
-    return (target || 0)[attr] = value;
-  };
-  
   var setTextContent = function setTextContent(element, content) {
-    return setAttribute(element, textContent, content);
+    return setAttribute(element, "textContent", content);
   };
   exports.setTextContent = setTextContent
 

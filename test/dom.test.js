@@ -83,19 +83,42 @@ describe("dom", function () {
     });
   });
 
-  describe("setTextContent", function () {
-    var element, query;
+  var verifyAttributeSetFunction = function (funcToTest, opts) {
+    var attributeName = opts.attributeName,
+    valueToSet = opts.valueToSet,
+    target, functionUnderTest;
 
-    beforeEach(function () {
-      element = document.createElement("span");
-      element.id = "the-element";
-      fixtureElement().appendChild(element);
-      query = domToolkit.query("#the-element");
-    });
+    describe(funcToTest, function () {
+      beforeEach(function () {
+        target = {};
+        functionUnderTest = domToolkit[funcToTest];
+      });
 
-    it("sets the textContent of the element", function () {
-      domToolkit.setTextContent(element, "This is the text");
-      expect(element.textContent).to.equal("This is the text");
+      it("is an available function", function () {
+        expect(functionUnderTest).to.be.a("function");
+      });
+
+      it("sets " + attributeName + " on the target to the right value", function () {
+        functionUnderTest(target, valueToSet);
+        expect(target[attributeName]).to.equal(valueToSet);
+      });
+
+      it("resolves the value when it is a function", function () {
+        var value = function () { return valueToSet; };
+        functionUnderTest(target, valueToSet);
+        expect(target[attributeName]).to.equal(valueToSet);
+      });
+
+      it("resolves the target when it is a function", function () {
+        var getTarget = function () { return target; };
+        functionUnderTest(getTarget, valueToSet);
+        expect(target[attributeName]).to.equal(valueToSet);
+      });
     });
+  };
+
+  verifyAttributeSetFunction("setTextContent", {
+    attributeName: "textContent",
+    valueToSet: "Here is some text."
   });
 });

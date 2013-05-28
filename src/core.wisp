@@ -14,7 +14,7 @@
   )
 
 (defn- no-param-memoize
-  "Memoizes the function in a nieve fashion. 
+  "Memoizes the function in a naive fashion. 
   The function does not consider varying parameters when memoizing."
   [x]
   (do
@@ -23,3 +23,8 @@
       (if (identical? value null)
         (set! value (x)))
       value)))
+
+(defn set-attribute
+  "Sets the value of the attribute on the target."
+  [target attr value]
+  (set! (get (resolve target) (resolve attr)) (resolve value)))

@@ -15,10 +15,6 @@
       (resolved-element.classList.add resolved-class-name))
     element))
 
-(defn- set-attribute
-  [target attr value]
-  (set! (get target attr) value))
-
 (defn set-text-content
   [element content]
-  (set-attribute element text-content content))
+  (set-attribute element :textContent content))
